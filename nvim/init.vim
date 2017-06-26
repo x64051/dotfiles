@@ -1,53 +1,43 @@
-" TODO welche foldmethod???
+" nvim config file
+
 "{{{ General
 "set nocompatible  
 syntax on
 filetype plugin indent on
 set hidden
+
 " remember last file position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-set exrc " eval local vimrc
 set secure
-
-" {{{ Fold vimrc
-augroup vimrcFold
-  " fold vimrc itself by categories
-  autocmd!
-  autocmd FileType vim set foldmethod=marker
-  autocmd FileType vim set foldlevel=0
-augroup END
-" }}}
-set noshowmode " airline shows the mode
+set noshowmode " mode is shown by airline
 set softtabstop=4 
 set shiftwidth=4 
 set expandtab 
 set nu rnu
 set modeline 
-
 set showcmd
-
 set tw=80 " textwidth
 set smartcase
 set smarttab
 set smartindent
 set autoindent
 set incsearch
-set ffs=unix,dos,mac " Use Unix as the standard file type
-set lazyredraw " Don't redraw while executing macros (good performance config)
-set magic      " For regular expressions turn magic on
-set showmatch  " Show matching brackets when text indicator is over them
+set ffs=unix,dos,mac 
+set lazyredraw 
+set magic
+set showmatch
 set mat=2      " How many tenths of a second to blink when matching brackets
 set history=1000
-
 set mouse=a
 
-" {{{ locales vimrc einbinden
+" {{{ exec local vim files
+set exrc " eval local vimrc
 if filereadable('.local.vim')
   so .local.vim
 endif
 " }}}
-"
+
 " {{{ ex menu
 set completeopt=menuone,menu,longest
 " set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
@@ -57,18 +47,25 @@ set completeopt+=longest
 set cmdheight=1
 " }}}
 
-
+" file format specific {{{
 " au BufNewFile,BufRead *.ta set ft=tex  " .ta == .tex
 " au BufNewFile,BufRead *.t set ft=tex  " .t == .tex 
 autocmd FileType mail set spell spelllang=de
 autocmd FileType markdown set spell spelllang=de
 
 autocmd FileType plaintex set ft=tex " XXX I DON'T KNOW WHETHER THIS IS A GOOD IDEA!!!!
- 
 " autocmd Filetype mail,tex,text,markdown DittoOn
+" {{{ Fold vimrc
+augroup vimrcFold
+  " fold vimrc itself by categories
+  autocmd!
+  autocmd FileType vim set foldmethod=marker
+  autocmd FileType vim set foldlevel=0
+augroup END
+" }}}
+" }}}
 
-" let mapleader = "\<Space>"
-let mapleader = ","
+let mapleader = "," " space sucks as mapleader
 nnoremap k gk
 nnoremap j gj
 nnoremap gk k
@@ -77,22 +74,18 @@ nnoremap Q @q
 
 autocmd BufRead,BufNewFile *.h,*.c set filetype=c
 
-" set guicursor=n-v-c:blcok,i-ci-ve:ver25,r-cr:hor20,o:hor50
 set guicursor=n-v:blcok,c-i-ci-ve:ver25,r-cr:hor20,o:hor50
-" set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCurso
 
 "}}}
 
 " Plug {{{
 call plug#begin('~/.config/nvim/plugged')
 
-"Plug 'scrooloose/nerdcommenter'  " comments
-"Plug 'tomtom/tcomment_vim'  " comments
 Plug 'tpope/vim-commentary'
 Plug 'easymotion/vim-easymotion'
 Plug 'benekastah/neomake' " , {'on': 'Neomake' }    make 
 Plug 'mhinz/vim-startify'  " Splashscreen
-Plug 'moll/vim-bbye'  " :Bdelete statt :bdelete
+Plug 'moll/vim-bbye'  " :Bdelete
 Plug 'godlygeek/tabular' , {'on': 'Tabularize'}  " Tabularize
 Plug 'nhooyr/neoman.vim'     " shift+k
 Plug 'tpope/vim-surround'    " cs'<asdf>
@@ -104,16 +97,17 @@ Plug 'danielbmarques/vim-ditto', {'on': 'DittoOn'}
 " Plug 'kien/rainbow_parentheses.vim'
 
 "theme
-Plug 'morhetz/gruvbox'  " theme
+" Plug 'morhetz/gruvbox'
 " Plug 'nanotech/jellybeans.vim'
 
-" multiple cursors CTRL-N TODO use this
-Plug 'terryma/vim-multiple-cursors'
+" TODO USE THESE PLUGINS
+" Plug 'terryma/vim-multiple-cursors'
+" Plug 'bronson/vim-visual-star-search'
 
-Plug '~/.config/eclim' , {'for': 'java'}
+
+" Plug '~/.config/eclim' , {'for': 'java'}
 " Plug 'LaTeX-Box-Team/LaTeX-Box' , {'for': 'tex'}
 " Plug 'plasticboy/vim-markdown' , {'for': 'markdown'} SLOW...
-
 " Plug 'Shougo/deoplete.nvim'
 " Plug 'zchee/deoplete-clang'
 
@@ -124,42 +118,35 @@ Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 " }}}
 
 Plug 'vim-voom/VOoM' , { 'on':  'Voom' } " Outline für Markdown; LaTeX
-
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}  " undo-tree
-
 Plug 'majutsushi/tagbar' , {'on': 'Tagbar'}   " tagbar
-
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Plug 'junegunn/fzf' , {'on':'FZF'} " search
-
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 " Plug 'Shougo/unite-outline' 
 Plug 'Shougo/unite.vim' ", {'on' : 'Unite'}
 Plug 'Shougo/denite.nvim' ", {'on' : 'Unite'}
 Plug 'Shougo/neoyank.vim'
-
-" Plug 'd'
 Plug 'dylanaraps/wal'
 
 " rust {{{
-Plug 'rust-lang/rust.vim', {'for': 'rust' }
-Plug 'racer-rust/vim-racer', {'for': 'rust' }
-let g:racer_cmd = "/home/x64051/.cargo/bin/racer"
-let $RUST_SRC_PATH="/home/x64051/.rustup/toolchains/stable-x86_64-unknown-linux-gnu"
-let g:racer_experimental_completer = 1
+" Plug 'rust-lang/rust.vim', {'for': 'rust' }
+" Plug 'racer-rust/vim-racer', {'for': 'rust' }
+" let g:racer_cmd = "/home/x64051/.cargo/bin/racer"
+" let $RUST_SRC_PATH="/home/x64051/.rustup/toolchains/stable-x86_64-unknown-linux-gnu"
+" let g:racer_experimental_completer = 1
 " }}}
 
-" fish {{{
 Plug 'dag/vim-fish' , {'for' : 'fish' }
-" }}}
+
 " {{{ haskell
-Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
-Plug 'neovimhaskell/haskell-vim',       { 'for': 'haskell' }
-Plug 'eagletmt/ghcmod-vim',             { 'for': 'haskell' }
-Plug 'eagletmt/neco-ghc',               { 'for': 'haskell' }
-Plug 'Twinside/vim-hoogle',             { 'for': 'haskell' }
-Plug 'mpickering/hlint-refactor-vim',   { 'for': 'haskell' }
-Plug 'bitc/vim-hdevtools',              { 'for': 'haskell' }
+" Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
+" Plug 'neovimhaskell/haskell-vim',       { 'for': 'haskell' }
+" Plug 'eagletmt/ghcmod-vim',             { 'for': 'haskell' }
+" Plug 'eagletmt/neco-ghc',               { 'for': 'haskell' }
+" Plug 'Twinside/vim-hoogle',             { 'for': 'haskell' }
+" Plug 'mpickering/hlint-refactor-vim',   { 'for': 'haskell' }
+" Plug 'bitc/vim-hdevtools',              { 'for': 'haskell' }
 " }}}
 
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-complete ', 'for': ['c','cpp','python'] }
@@ -177,43 +164,42 @@ call plug#end()
 " {{{ Plugin settings
 " let loaded_delimitMate = 1
 
-
 " {{{ Rainbow_parentheses
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
+" let g:rbpt_colorpairs = [
+"     \ ['brown',       'RoyalBlue3'],
+"     \ ['Darkblue',    'SeaGreen3'],
+"     \ ['darkgray',    'DarkOrchid3'],
+"     \ ['darkgreen',   'firebrick3'],
+"     \ ['darkcyan',    'RoyalBlue3'],
+"     \ ['darkred',     'SeaGreen3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['brown',       'firebrick3'],
+"     \ ['gray',        'RoyalBlue3'],
+"     \ ['black',       'SeaGreen3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['Darkblue',    'firebrick3'],
+"     \ ['darkgreen',   'RoyalBlue3'],
+"     \ ['darkcyan',    'SeaGreen3'],
+"     \ ['darkred',     'DarkOrchid3'],
+"     \ ['red',         'firebrick3'],
+"     \ ]
+" let g:rbpt_max = 16
+" let g:rbpt_loadcmd_toggle = 0
 "}}}
 
 " UltiSnips {{{
-let g:UltiSnipsExpandTrigger="<tab>"  " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe. XXX
+let g:UltiSnipsExpandTrigger="<tab>"  " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe. FIXME change key
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+"}}}
 
-let g:gruvbox_contrast_dark='hard'
 set background=dark
+" let g:gruvbox_contrast_dark='hard'
 " colorscheme gruvbox
 colorscheme wal
 hi normal ctermbg=none
-"}}}
 
 " Startify:  {{{
 let g:startify_list_order = [
@@ -221,16 +207,16 @@ let g:startify_list_order = [
         \ 'files',
         \ ['   most recently used files in the current directory:'],
         \ 'dir',
-        \ ['   sessions:'],
+        \ ['    sessions:'],
         \ 'sessions',
-        \ ['   bookmarks:'],
+        \ ['    bookmarks:'],
         \ 'bookmarks',
         \ ]
 
 let g:startify_bookmarks = [ 
       \{'v': '~/.config/nvim/init.vim'}, 
       \{'i': '~/.config/i3/config'}, 
-      \{'z': '~/.zshrc' },
+      \{'f': '~/.config/fish/' },
       \{'w': '~/vimwiki/index.wiki' },
       \]
 
@@ -239,29 +225,13 @@ let g:airline_powerline_fonts = 1
 let g:startify_files_number = 10
 let g:startify_session_persistence = 0
 
-" let g:startify_custom_header= map(system('date "+%H:%M %a %m.%d" | toilet --termwidth --font future --filter metal'))
-
-"let g:startify_custom_header = map(split(system('sh ~/bin/.res/fil'), '\n'), '"   ". v:val') + ['','']
-" let g:startify_custom_header = map(split(system('date "+%H:%M" | toilet --termwidth --font future'), '\n'), '"   ". v:val') 
-" let g:startify_custom_header = map(split(system('toilet X64051 --termwidth --font future'), '\n'), '"   ". v:val') 
-" let g:NVIM = [
-"       \ '        ░█▀█░█▀▀░█▀█░█░█░▀█▀░█▄█',
-"       \ '        ░█░█░█▀▀░█░█░▀▄▀░░█░░█░█',
-"       \ '        ░▀░▀░▀▀▀░▀▀▀░░▀░░▀▀▀░▀░▀']
-" let g:NVIM = [
-"       \ '░░░░░░░░██ █░█▀▀▀░█▀▀█░█ █░▀█▀░█▄ ▄█',
-"       \ '░░░░░░░░█ ██░█▀▀▀░█░░█░▀▄▀░░█░░█░█░█',
-"       \ '░░░░░░░░▀  ▀░▀▀▀▀░▀▀▀▀░░▀░░▀▀▀░▀░░░▀']
 let g:NVIM = [
       \'    _____ _____ _____ _____ __ _____ ',
       \'   |   | |   __|     |  |  |  |     |',
       \'   | | | |   __|  |  |  |  |--| | | |',
       \'   |_|___|_____|_____|\___/|__|_|_|_|']
                                      
-
-
 let g:startify_custom_header = g:NVIM
-" let g:startify_custom_header = "nvim"
  
 "}}}
 
@@ -283,59 +253,58 @@ nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 "}}}
 
 " {{{   Haskell
-augroup  haskell
-    let g:haskellmode_completion_ghc = 1
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-let g:tagbar_type_haskell = {
-    \ 'ctagsbin'  : 'hasktags',
-    \ 'ctagsargs' : '-x -c -o-',
-    \ 'kinds'     : [
-        \  'm:modules:0:1',
-        \  'd:data: 0:1',
-        \  'd_gadt: data gadt:0:1',
-        \  't:type names:0:1',
-        \  'nt:new types:0:1',
-        \  'c:classes:0:1',
-        \  'cons:constructors:1:1',
-        \  'c_gadt:constructor gadt:1:1',
-        \  'c_a:constructor accessors:1:1',
-        \  'ft:function types:1:1',
-        \  'fi:function implementations:0:1',
-        \  'o:others:0:1'
-    \ ],
-    \ 'sro'        : '.',
-    \ 'kind2scope' : {
-        \ 'm' : 'module',
-        \ 'c' : 'class',
-        \ 'd' : 'data',
-        \ 't' : 'type'
-    \ },
-    \ 'scope2kind' : {
-        \ 'module' : 'm',
-        \ 'class'  : 'c',
-        \ 'data'   : 'd',
-        \ 'type'   : 't'
-    \ }
-\ }
+" augroup  haskell
+"     let g:haskellmode_completion_ghc = 1
+"     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" let g:tagbar_type_haskell = {
+"     \ 'ctagsbin'  : 'hasktags',
+"     \ 'ctagsargs' : '-x -c -o-',
+"     \ 'kinds'     : [
+"         \  'm:modules:0:1',
+"         \  'd:data: 0:1',
+"         \  'd_gadt: data gadt:0:1',
+"         \  't:type names:0:1',
+"         \  'nt:new types:0:1',
+"         \  'c:classes:0:1',
+"         \  'cons:constructors:1:1',
+"         \  'c_gadt:constructor gadt:1:1',
+"         \  'c_a:constructor accessors:1:1',
+"         \  'ft:function types:1:1',
+"         \  'fi:function implementations:0:1',
+"         \  'o:others:0:1'
+"     \ ],
+"     \ 'sro'        : '.',
+"     \ 'kind2scope' : {
+"         \ 'm' : 'module',
+"         \ 'c' : 'class',
+"         \ 'd' : 'data',
+"         \ 't' : 'type'
+"     \ },
+"     \ 'scope2kind' : {
+"         \ 'module' : 'm',
+"         \ 'class'  : 'c',
+"         \ 'data'   : 'd',
+"         \ 'type'   : 't'
+"     \ }
+" \ }
 
-augroup END
-" }}}
+" augroup END
+" " }}}
 
-"{{{ Deoplete: C
-" let g:deoplete#sources#clang#libclang_path="/usr/lib64/libclang.so"
-" let g:deoplete#sources#clang#clang_header="/usr/lib64/clang/"
-" let g:deoplete#enable_at_startup = 1
+" "{{{ Deoplete: C
+" " let g:deoplete#sources#clang#libclang_path="/usr/lib64/libclang.so"
+" " let g:deoplete#sources#clang#clang_header="/usr/lib64/clang/"
+" " let g:deoplete#enable_at_startup = 1
 "}}}
 
 " NERDTree {{{
 let NERDTreeIgnore=['\.o$', '\.class$'] " hide object files
 " }}}
 
-
-
 " }}}
 
 
+" TODO:
 " hi link EasyMotionTarget Keyword
 " hi link EasyMotionShade  Literal
 
