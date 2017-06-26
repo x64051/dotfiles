@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# WARNING: shis is the biggest piece of crap you'll ever find. 
+# Do not use this abnormity of an wallpaper manager. PLEASE
+
+if [ "$1" = "-cron"  ]; then
+  
+  # called by cron
+  if [ -f /home/x64051/.bgauto ]; then
+    IMGDIR=$(cat ~/.bgdir) # only if file ~/.bgauto exists
+  else
+    exit
+  fi
+
+else 
+
+  if [ -n "$1" ]; then # folder containing pictures?
+      IMGDIR=$1
+  else
+      IMGDIR=$(cat ~/.bgdir) # if not: use folder from ~/.bgdir
+  fi
+
+fi
+
+
+
+files=($IMGDIR/*)        # create an array of the files.
+
+N=${#files[@]}          # Number of members in the array
+
+((N=RANDOM%N))
+
+randomfile=${files[$N]}
+
+DISPLAY=:0.0 feh --bg-fill $randomfile
+
+echo $IMGDIR > /home/x64051/.bgdir
+

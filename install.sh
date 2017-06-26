@@ -2,21 +2,24 @@
 
 DOTFILES=$(pwd)
 
-# ├── cmus
-# │   └── autosave
-# ├── colors
-# ├── htop
-# │   └── htoprc
-# ├── i3
-# │   └── config
-# ├── i3status
-# │   └── config
-# ├── inputrc
-# ├── install.sh
-# ├── keynavrc
-# ├── nvim
-# │   └── init.vim
-# └── Xresources
+# ~/bin: {{{
+mkdir -p ~/bin
+FILES=$DOTFILES/bin/*
+for f in $FILES
+do
+    ln -s $f ~/bin
+done
+# }}}
+
+# fish{{{
+mkdir -p ~/.config/fish/functions
+ln -s $DOTFILES/fish/config.fish ~/.config/fish/
+FILES=$DOTFILES/fish/functions
+for f in $FILES
+do
+    ln -s $f ~/.config/fish
+done
+# }}}
 
 # cmus {{{
 mkdir -p ~/.config/cmus
@@ -35,9 +38,10 @@ ln -s $DOTFILES/i3/config ~/.config/i3/config
 ln -s $DOTFILES/i3status/config ~/.config/i3status/config
 # }}}
 
-# inputrc, keynavrc {{{
+# inputrc, keynavrc, Xresources {{{
 ln -s $DOTFILES/inputrc ~/.inputrc
 ln -s $DOTFILES/keynavrc ~/.keynavrc
+ln -s $DOTFILES/Xresources ~/.Xresources
 # }}}
 
 # nvim{{{
@@ -48,10 +52,15 @@ ln -s $DOTFILES/nvim/init.vim ~/.config/nvim/init.vim
 echo please run :PlugInstall when using nvim next time
 #}}}
 
+
 # st{{{
-
-echo TODO: clone st, apply patches, enter colors
-
+echo remove all other st installations, then press enter to continue
+read 
+git clone https://github.com/x64051/xst
+cd xst
+make
+sudo make install
 # }}}
 
 
+# vim:foldmethod=marker

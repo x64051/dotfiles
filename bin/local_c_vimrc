@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# TODO implement cool stuff here
+
+echo 'set tabstop=4'
+echo 'set softtabstop=4'
+echo 'set shiftwidth=4'
+echo 'set noexpandtab'
+echo
+echo 'set colorcolumn=110'
+echo 'highlight ColorColumn ctermbg=darkgray'
+
+
+echo '".h header files -> C (not C++)'
+echo augroup project
+echo     'autocmd!'
+echo     'autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen'
+echo augroup END
+
+
+echo '"path for gf XXX:modify'
+echo 'let &path.="src/include,/usr/include/AL,"'
+

@@ -237,8 +237,7 @@ bindsym XF86AudioMute        exec pulsemixer --toggle-mute
 
 # wallpaper control
 mode "wallpaper" {
-
-    bindsym space  exec random_wallpaper 
+bindsym space  exec random_wallpaper 
     bindsym shift+slash exec wallpaper_msg
 
     bindsym j exec rm /home/x64051/.bgauto; exec notify-send -t 1 -u low "auto off"
@@ -285,5 +284,5 @@ bindsym $mod+bracketright workspace next
 # exec xcompmgr -c -f -n
 exec i3-msg "workspace 0"
 
-exec --no-startup-id compton
+# exec --no-startup-id compton
 

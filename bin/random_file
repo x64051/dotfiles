@@ -1,0 +1,16 @@
+#!/bin/bash
+
+files=($1/*)
+#echo FILES: $files
+
+N=${#files[@]}          # Number of members in the array
+#echo NUMBER OF FILES: $N
+
+((N=RANDOM%N))
+#echo RANDOM: $N
+
+randomfile=${files[$N]}
+
+echo $randomfile
+
+

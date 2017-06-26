@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# copy m3u(8) playlist
+
+echo "start"
+
+PLAYLIST=$1
+TARGETDIR=$2
+
+#just in case...
+dos2unix $PLAYLIST 
+
+x=1
+lnumbers=$(cat $PLAYLIST | wc -l )
+
+while read -r line; do
+     # echo "$x / ${lnumbers}"
+     echo -e "$x/$lnumbers\tcp $line $TARGETDIR"
+     cp "$line" "$TARGETDIR" # for spaces... in filename
+     ((x++))
+done < $PLAYLIST
+
+echo "done"
+
