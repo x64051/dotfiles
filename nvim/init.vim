@@ -93,17 +93,22 @@ Plug 'tpope/vim-rsi'   " CTRL P,B,F,N in cmdline
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth' " auto detect file indent 
 Plug 'vim-airline/vim-airline'  
+Plug 'vim-airline/vim-airline-themes'  
 Plug 'danielbmarques/vim-ditto', {'on': 'DittoOn'}  
 " Plug 'kien/rainbow_parentheses.vim'
 
 "theme
 " Plug 'morhetz/gruvbox'
 " Plug 'nanotech/jellybeans.vim'
-
+Plug 'dylanaraps/wal'
+" Plug 'jdkanani/vim-material-theme'
+" Plug 'chriskempson/base16-vim'
 " TODO USE THESE PLUGINS
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'bronson/vim-visual-star-search'
 
+" Plug 'lifepillar/vim-solarized8'
+Plug 'romainl/flattened'
 
 " Plug '~/.config/eclim' , {'for': 'java'}
 " Plug 'LaTeX-Box-Team/LaTeX-Box' , {'for': 'tex'}
@@ -127,7 +132,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/unite.vim' ", {'on' : 'Unite'}
 Plug 'Shougo/denite.nvim' ", {'on' : 'Unite'}
 Plug 'Shougo/neoyank.vim'
-Plug 'dylanaraps/wal'
 
 " rust {{{
 " Plug 'rust-lang/rust.vim', {'for': 'rust' }
@@ -197,10 +201,11 @@ let g:UltiSnipsEditSplit="vertical"
 
 set background=dark
 " let g:gruvbox_contrast_dark='hard'
-" colorscheme gruvbox
-colorscheme wal
-hi normal ctermbg=none
-
+" colorscheme wal
+" colorscheme solarized8_dark
+colorscheme flattened_dark
+let g:airline_theme='solarized'
+" hi normal ctermbg=none
 " Startify:  {{{
 let g:startify_list_order = [
         \ ['    recently used files:'],
@@ -304,12 +309,14 @@ let NERDTreeIgnore=['\.o$', '\.class$'] " hide object files
 " }}}
 
 
-" TODO:
-" hi link EasyMotionTarget Keyword
-" hi link EasyMotionShade  Literal
+hi link EasyMotionShade SpecialKey
 
-" hi link EasyMotionTarget2First MatchParen
-" hi link EasyMotionTarget2Second MatchParen
+hi link EasyMotionTarget WarningMsg
+hi link EasyMotionTarget2First DiffDelete
+hi link EasyMotionTarget2Second SpecialKey
 
-" hi link EasyMotionMoveHL Search
+hi link EasyMotionMoveHL SpecialKey
 " hi link EasyMotionIncSearch Search
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

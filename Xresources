@@ -1,23 +1,21 @@
-
-#define __BG   #010100
-#define __FG   #caa04b
-#define __ATTN #9f3535
-#define __C0   #010100
-#define __C1   #9f3535
-#define __C2   #314c1e
-#define __C3   #caa04b
-#define __C4   #be551e
-#define __C5   #ceb344
-#define __C6   #a38034
-#define __C7   #897b59
-#define __C8   #545637
-#define __C9   #773e3e
-#define __C10  #2d3924
-#define __C11  #a4823d
-#define __C12  #9f6835
-#define __C13  #9c8141
-#define __C14  #775a1c
-#define __C15  #f2d99d
+#define __C0    #073642
+#define __C1    #dc322f
+#define __C2    #859900
+#define __C3    #b58900
+#define __C4    #268bd2
+#define __C5    #d33682
+#define __C6    #2aa198
+#define __C7    #eee8d5
+#define __C8    #002b36
+#define __C9    #cb4b16
+#define __C10   #586e75
+#define __C11   #657b83
+#define __C12   #839496
+#define __C13   #6c71c4
+#define __C14   #93a1a1
+#define __C15   #fdf6e3
+#define  __BG  __C8
+#define  __FG  __C12
 
 ! Colors in general
 *.foreground  : __BG

@@ -9,9 +9,7 @@ function fish_prompt --description 'Write out the prompt'
             echo -e -n "[30;41m"
     end
     set -l color_cwd
-    echo -n -s (prompt_pwd)"[7m" 
-    echo -e -n " " 
-    echo -e -n  (set_color normal)
+    echo -n -s (prompt_pwd)"[7;90m " (set_color normal)
 
 end
 
