@@ -9,9 +9,12 @@
 general {
         colors = true
         interval = 5
-        color_good =     "#314c1e"
-        color_degraded = "#caa04b"
-        color_bad =      "#9f3535"
+        # color_good =     "#314c1e"
+        # color_degraded = "#caa04b"
+        # color_bad =      "#9f3535"
+        color_good =     "#859900"
+        color_degraded = "#b58900"
+        color_bad =      "#dc322f"
 }
 
 order += "battery 0"

@@ -309,14 +309,12 @@ let NERDTreeIgnore=['\.o$', '\.class$'] " hide object files
 " }}}
 
 
-hi link EasyMotionShade SpecialKey
+hi link EasyMotionShade NonText
 
-hi link EasyMotionTarget WarningMsg
-hi link EasyMotionTarget2First DiffDelete
+hi link EasyMotionTarget IncSearch
+hi link EasyMotionTarget2First Title
 hi link EasyMotionTarget2Second SpecialKey
 
-hi link EasyMotionMoveHL SpecialKey
+hi link EasyMotionMoveHL NonText
 " hi link EasyMotionIncSearch Search
 
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

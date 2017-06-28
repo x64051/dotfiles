@@ -18,7 +18,7 @@
 #define  __FG  __C12
 
 ! Colors in general
-*.foreground  : __BG
+*.foreground  : __FG
 *.background  : __BG
 *.cursorColor : __FG
 *.color0   :__C0 
@@ -73,8 +73,8 @@ Xft.hintstyle:  hintslight
 ! URxvt*.shading: 5
 
 ! inactive fading:
-*fading:             50
-*fadeColor:          #1d2021
+*fading:             20
+*fadeColor:          __BG
 
 URxvt.intensityStyles: false
 URxvt.termName: xterm-256color
@@ -138,7 +138,7 @@ rofi.font: Terminess Powerline 10
 
 rofi.color-enabled: true
 !                  bg       border   separator
-rofi.color-window: __BG,    __C3,    __BG
+rofi.color-window: __BG,    __BG,    __BG
 !                  bg       fg       bg-alt   hl-bg    hl-fg
 rofi.color-normal: __BG,    __FG,    __BG,   __C2,   __BG
 rofi.color-urgent: __BG,    __C1,    __BG,   __C2,   __BG
