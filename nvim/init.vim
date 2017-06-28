@@ -86,8 +86,7 @@ Plug 'tpope/vim-surround'    " cs'<asdf>
 Plug 'tpope/vim-rsi'   " CTRL P,B,F,N in cmdline
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth' " auto detect file indent 
-" Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'  
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'  
 Plug 'danielbmarques/vim-ditto', {'on': 'DittoOn'}
 
 Plug 'romainl/flattened' "Solarized colors
@@ -150,50 +149,11 @@ let g:startify_custom_header = g:NVIM
 
 " Airline: {{{
 
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline_theme='solarized'
-" let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='solarized'
+let g:airline_powerline_fonts = 1
 
 " }}}
-
-" LightLine {{{
-let g:lightline = { }
-
-function! LightlineFilename()
-  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
-  let modified = &modified ? ' [+]' : ''
-  return filename . modified
-endfunction
-
-
-let g:lightline.colorscheme = 'solarized'
-
-let g:lightline.component = {
-      \'charvaluehex': '0x%B'
-      \}
-
-let g:lightline.component_function = {
-      \'filename': 'LightlineFilename'
-      \ }
-
-let g:lightline.active = {
-    \ 'left': [ [ 'mode', 'paste' ],
-    \           [ 'readonly', 'spell', 'filetype'],
-    \           [ 'filename' ] ],
-    \ 'right': [ [  'bufnum' ],
-    \            [ 'percent', 'lineinfo' ],
-    \            [ 'fileformat', 'fileencoding'] ] }
-let g:lightline.inactive = {
-    \ 'left': [ [ 'filename' ] ],
-    \ 'right': [ [ 'lineinfo' ],
-    \            [ 'percent' ] ] }
-let g:lightline.tabline = {
-    \ 'left': [ [ 'tabs' ] ],
-    \ 'right': [ [ ] ] }
-" }}}
-
-let g:lightline.separator    = { 'left': '', 'right': '' }
-let g:lightline.subseparator = { 'left': '|', 'right': '|' }
 
 " Denite {{{
 
