@@ -1,15 +1,22 @@
 function fish_prompt --description 'Write out the prompt'
 
+    set -l last_status $status
+
     switch $fish_bind_mode
         case default
-            echo -e -n "[30;44m"
+            set n_bg 44
         case insert
-            echo -e -n "[30;42m"
+            set n_bg 42
         case visual
-            echo -e -n "[30;41m"
+            set n_bg 41
     end
-    set -l color_cwd
-    echo -n -s (prompt_pwd)"[7;90m " (set_color normal)
+
+    if [ $last_status != 0 ]
+        echo -n -s "[1;41;90m$last_status[0;$n_bg;31m"
+    end
+
+    echo -n -s "[$n_bg;30m"(prompt_pwd)"[7;90m " (set_color normal)
+
 
 end
 

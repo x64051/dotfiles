@@ -1,6 +1,6 @@
 function fish_right_prompt
-    set -l last_status $status
-    if [ $last_status -ne 0 ]
-        echo -e -n "[100;31m[7m$last_status"(set_color normal)
+    set _g (git rev-parse --abbrev-ref HEAD ^ /dev/null)
+    if [ $status = 0 ]
+        echo -n -e "[0;32;100m[7m$_g"(set_color normal)
     end
 end
