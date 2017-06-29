@@ -1,0 +1,40 @@
+source ~/.mutt_solarized
+source ~/.mutt/contacts
+
+set spoolfile = "+Mpgg/INBOX"
+source ~/.mutt/Mpgg
+
+folder-hook Mpgg/*  source ~/.mutt/Mpgg
+folder-hook Gmail/* source ~/.mutt/Gmail
+
+set sort_aux=last-date-received
+set sort=threads
+# http://ryanlue.com/posts/2017-05-21-mutt-the-vim-way
+bind generic,index,pager \Cf       next-page
+bind generic,index,pager \Cb       previous-page
+bind generic             gg        first-entry
+bind generic,index       G         last-entry
+bind pager               gg        top
+bind pager               G         bottom
+bind generic,pager       \Cy       previous-line
+bind generic,index,pager \Ce       next-line
+bind generic,index,pager \Cd       half-down
+bind generic,index,pager \Cu       half-up
+bind generic             zt        current-top
+bind generic             zz        current-middle
+bind generic             zb        current-bottom
+bind index               zc        collapse-thread
+bind index               zA        collapse-all
+bind index,pager         N         search-opposite
+bind index               <Backtab> previous-new-then-unread
+
+bind  generic        tt  tag-entry
+bind  index          tat tag-thread
+bind  pager          tt  tag-message
+macro pager          tat "<exit><mark-message>q<enter><tag-thread>'q<display-message>"    "tag-thread"
+macro index,pager    gx  "<pipe-message>urlview<Enter>"                                   "call urlview to extract URLs out of a message"
+macro attach,compose gx  "<pipe-entry>urlview<Enter>"                                     "call urlview to extract URLs out of a message"
+
+bind editor \Cp history-up
+bind editor \Cn history-down
+

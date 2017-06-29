@@ -1,0 +1,27 @@
+# newsbeuter config file
+
+auto-reload yes
+refresh-on-startup yes
+
+browser firefox
+cleanup-on-quit yes
+feed-sort-order firsttag
+max-downloads 4
+notify-always yes
+notify-format "newsbeuter: %n unread articles within %f unread feeds"
+notify-program notify-send
+notify-xterm yes
+player mplayer
+reload-time 120
+reload-threads 2
+show-read-articles yes
+show-read-feeds yes
+confirm-exit yes
+show-keymap-hint no
+ignore-mode "display"
+articlelist-format "%4i %f %D  %?T?|%-17T| ?%t"
+                    # FG        BG
+color listfocus    color0      color3
+color info          color15      color8
+color listnormal_unread color3  color8
+color listfocus_unread  color8  color3

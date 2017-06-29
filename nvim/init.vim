@@ -9,7 +9,7 @@ set hidden
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 set secure
-set noshowmode " mode is shown by airline
+set noshowmode
 set softtabstop=4 
 set shiftwidth=4 
 set expandtab 
@@ -47,13 +47,15 @@ set cmdheight=1
 " }}}
 
 " file format specific {{{
-" au BufNewFile,BufRead *.ta set ft=tex  " .ta == .tex
-" au BufNewFile,BufRead *.t set ft=tex  " .t == .tex 
-autocmd FileType mail set spell spelllang=de
-autocmd FileType markdown set spell spelllang=de
+autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+autocmd BufRead,BufNewFile *.wiki set filetype=vimwiki
 
-autocmd FileType plaintex set ft=tex " XXX I DON'T KNOW WHETHER THIS IS A GOOD IDEA!!!!
-autocmd Filetype mail,tex,text,markdown DittoOn
+autocmd FileType mail,markdown,tex,vimwiki set spelllang=de
+autocmd FileType mail set spell
+autocmd FileType plaintex set ft=tex
+autocmd Filetype mail,tex,text,markdown,vimwiki DittoOn
+
+
 " {{{ Fold vimrc
 augroup vimrcFold
   " fold vimrc itself by categories
@@ -71,8 +73,6 @@ nnoremap gk k
 nnoremap gj j
 nnoremap Q @q
 
-autocmd BufRead,BufNewFile *.h,*.c set filetype=c
-
 " Plug {{{
 call plug#begin('~/.config/nvim/plugged')
 
@@ -86,23 +86,22 @@ Plug 'tpope/vim-surround'    " cs'<asdf>
 Plug 'tpope/vim-rsi'   " CTRL P,B,F,N in cmdline
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth' " auto detect file indent 
-Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'  
+Plug 'itchyny/lightline.vim'
 Plug 'danielbmarques/vim-ditto', {'on': 'DittoOn'}
-
 Plug 'romainl/flattened' "Solarized colors
+Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}  " undo-tree
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }  " TODO get rid of NERDTree
+Plug 'Shougo/denite.nvim'
 
 " TODO USE THESE PLUGINS
 " Plug 'terryma/vim-multiple-cursors'
 " Plug 'bronson/vim-visual-star-search'
 " Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 " Plug 'wellle/targets.vim'
 " Plug 'haya14busa/incsearch.vim'
 " Plug 'tpope/vim-vinegar'
-
-Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}  " undo-tree
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Shougo/denite.nvim'
+" Plug 'Shougo/deoplete.nvim'
 
 Plug 'dag/vim-fish' , {'for' : 'fish' }
 Plug 'jiangmiao/auto-pairs'  " auto close brackets etc
@@ -152,6 +151,53 @@ let g:startify_custom_header = g:NVIM
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
+
+" }}}
+
+" LightLine {{{
+let g:lightline = { }
+
+function! DataInfo()
+  let fileenc = &fileencoding == "utf-8" ? "" : &fileencoding
+  let filefmt = &fileformat == "unix" ? "" : ( "[" . &fileformat . "]" )
+  return fileenc . filefmt
+endfunction
+
+
+let g:lightline.colorscheme = 'solarized'
+
+let g:lightline.component = {
+      \'charvaluehex': '0x%B',
+      \'FileInfoModified': '%M',
+      \'FileInfoReadOnly': '%R',
+      \'FileInfoHelp':     '%H',
+      \'FileInfoPRV':      '%W',
+      \'FileInfo': '%m%r%h%w%q',
+      \'PosInfo': '%p%%: %l/%L:%c',
+      \'FileName': '%t'
+      \}
+
+let g:lightline.component_function = {
+      \'DataInfo': 'DataInfo',
+      \ }
+
+let g:lightline.active = {
+    \ 'left': [ [ 'mode', 'paste' ],
+    \           ['FileInfo'],
+    \           [ 'FileName' ] ],
+    \ 'right': [ [ 'PosInfo' ],
+    \            [ 'DataInfo' ],
+    \            [ 'filetype', 'spell' ], ] }
+
+let g:lightline.inactive = {
+    \ 'left': [ [ 'filename' ] ],
+    \ 'right': [ [ 'percent', 'lineinfo' ] ] }
+let g:lightline.tabline = {
+    \ 'left': [ [ 'tabs' ] ],
+    \ 'right': [ [ ] ] }
+
+let g:lightline.separator    = { 'left': '', 'right': '' }
+let g:lightline.subseparator = { 'left': '|', 'right': '|' }
 
 " }}}
 
