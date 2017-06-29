@@ -26,6 +26,7 @@ set ffs=unix,dos,mac
 set lazyredraw 
 set magic
 set showmatch
+" XXX set icm=nosplit
 set mat=2      " How many tenths of a second to blink when matching brackets
 set history=1000
 set mouse=a
@@ -145,14 +146,6 @@ let g:NVIM = [
 let g:startify_custom_header = g:NVIM
  
 "}}}
-
-" Airline: {{{
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='solarized'
-let g:airline_powerline_fonts = 1
-
-" }}}
 
 " LightLine {{{
 let g:lightline = { }

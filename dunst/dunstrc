@@ -21,7 +21,7 @@
 
 [frame]
     width = 3
-    color = "#839496"
+    color = "#eee8d5"
 
 [shortcuts]
     close = ctrl+space
@@ -35,7 +35,7 @@
     timeout = 10
 
 [urgency_normal]
-    background = "#839496"
+    background = "#eee8d5"
     foreground = "#002b36"
     timeout = 20
 
